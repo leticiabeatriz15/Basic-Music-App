@@ -15,20 +15,20 @@ public class App {
           musica1.setnomeMusica("Count-Em");
           musica1.setGenero("Rock");
           musica1.setDuracao(180);
-          musica1.setArquivoAudio("Basic-Music-App/aula-de-poo-playmusic/assets/Brandon-Lake_Count-Em.wav");
+          musica1.setArquivoAudio("./assets/Brandon-Lake_Count-Em.wav");
 
 
           Musica musica2 = new Musica();
           musica2.setnomeMusica("That's who i praise");
           musica2.setGenero("Rock");
           musica2.setDuracao(180);
-          musica2.setArquivoAudio("Basic-Music-App/aula-de-poo-playmusic/assets/Brandon-Lake_Thats-Who-I-Praise.wav");
+          musica2.setArquivoAudio("./assets/Brandon-Lake_Thats-Who-I-Praise.wav");
 
           Musica musica3 = new Musica();
           musica3.setnomeMusica("Tear-Off-The-Roof");
           musica3.setGenero("Rock");
           musica3.setDuracao(180);
-          musica3.setArquivoAudio("Basic-Music-App/aula-de-poo-playmusic/assets/Brandon-Lake_Tear-Off-The-Roof.wav");
+          musica3.setArquivoAudio("./assets/Brandon-Lake_Tear-Off-The-Roof.wav");
 
           Album album1 = new Album();
           album1.setNomeAlbum("Primeiro artista");
@@ -76,7 +76,21 @@ public class App {
                }
           });
 
-          ImageIcon icon = new ImageIcon("Basic-Music-App/aula-de-poo-playmusic/assets/imgMusic.png");
+          JButton previousAudioButton = new JButton("Previous Audio");
+          previousAudioButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                    if(player.isPlaying){
+                         player.previousAudio();
+                    }else{
+                         player.previousAudio();
+                         playStopButton.setText("Stop");
+                    }
+               }
+          });
+
+
+          ImageIcon icon = new ImageIcon("./assets/imgMusic.png");
           //Exibe um JOptionPane com o botão Play/Stop
           JOptionPane.showOptionDialog(
                 null,
@@ -85,7 +99,7 @@ public class App {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 icon,
-                new Object[] { playStopButton, nextAudioButton }, playStopButton);
+                new Object[] { previousAudioButton, playStopButton, nextAudioButton }, playStopButton);
 
           // Fecha o clip de áudio ao encerrar o programa
           if (player.audioClip != null) {

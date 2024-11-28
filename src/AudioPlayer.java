@@ -76,6 +76,24 @@ public class AudioPlayer {
       }
     }
 
+    public void previousAudio (){
+
+      System.out.println("previousAudio");
+      stopAudio();
+
+      if(this.indice == 0){
+        indice = listaDeReproducao.size() - 1;
+        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+        playAudio();
+
+      }else if(this.indice <= listaDeReproducao.size() - 1){
+        indice --;
+        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+        playAudio();
+        
+      }
+    }
+
     public void nextAudio (){
       System.out.println("nextAudio");
       stopAudio();
