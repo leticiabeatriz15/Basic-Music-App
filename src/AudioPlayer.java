@@ -10,11 +10,14 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import dominio.Album;
 import dominio.Musica;
 
 public class AudioPlayer {
+    private List<Album> listaDeAlbuns;
+    private int indiceAlbum;
     private List<Musica> listaDeReproducao;
-    private int indice;
+    private int indiceMusica;
     public Clip audioClip;
     public boolean isPlaying = false;
 
@@ -51,14 +54,21 @@ public class AudioPlayer {
       }
     }
 
+    public void listAlbuns(List<Album> albuns){
+      this.listaDeAlbuns = albuns;
+      this.indiceAlbum = 0;
+      listMusic(albuns.get(indiceAlbum).getMusicas());
+    }
+
     public void listMusic(List<Musica> musicas){
       this.listaDeReproducao = musicas;
-      this.indice = 0;
-      loadAudio(musicas.get(indice).getArquivoAudio());
-    }
+      this.indiceMusica = 0;
+      loadAudio(musicas.get(indiceMusica).getArquivoAudio());
+    }    
   
     public void playAudio() {
       System.out.println("playAudio");
+      
       if (audioClip != null && !isPlaying) {
         audioClip.setFramePosition(0); // Reinicia o áudio do começo
         System.out.println("playAudio start");
@@ -69,6 +79,7 @@ public class AudioPlayer {
   
     public void stopAudio() {
       System.out.println("stopAudio");
+
       if (audioClip != null && isPlaying) {
         System.out.println("stopAudio stop");
         audioClip.stop();
@@ -81,32 +92,50 @@ public class AudioPlayer {
       System.out.println("previousAudio");
       stopAudio();
 
-      if(this.indice == 0){
-        indice = listaDeReproducao.size() - 1;
-        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+      if(this.indiceMusica == 0){
+        indiceMusica = listaDeReproducao.size() - 1;
+        loadAudio(listaDeReproducao.get(indiceMusica).getArquivoAudio());
         playAudio();
 
-      }else if(this.indice <= listaDeReproducao.size() - 1){
-        indice --;
-        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+      }else if(this.indiceMusica <= listaDeReproducao.size() - 1){
+        indiceMusica --;
+        loadAudio(listaDeReproducao.get(indiceMusica).getArquivoAudio());
         playAudio();
-        
+
       }
     }
 
     public void nextAudio (){
+
       System.out.println("nextAudio");
       stopAudio();
-      if(this.indice < listaDeReproducao.size() - 1){
-        indice ++;
-        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+
+      if(this.indiceMusica < listaDeReproducao.size() - 1){
+        indiceMusica ++;
+        loadAudio(listaDeReproducao.get(indiceMusica).getArquivoAudio());
         playAudio();
-      }else if(this.indice == listaDeReproducao.size() - 1){
-        indice = 0;
-        loadAudio(listaDeReproducao.get(indice).getArquivoAudio());
+
+      }else if(this.indiceMusica == listaDeReproducao.size() - 1){
+        indiceMusica = 0;
+        loadAudio(listaDeReproducao.get(indiceMusica).getArquivoAudio());
         playAudio();
+
       }else{
         System.out.println("Sua lista de reprodução está vazia!\nAdicione músicas para tocar...");
+
+      }
+    }
+
+    public void nextAlbum(){
+      System.out.println("nextAlbum");
+
+      if(this.indiceAlbum < listaDeAlbuns.size() - 1){
+        indiceAlbum ++;
+        listMusic(listaDeAlbuns.get(indiceAlbum).getMusicas());
+
+      }else{
+        indiceAlbum = 0;
+        listMusic(listaDeAlbuns.get(indiceAlbum).getMusicas());
       }
     }
 

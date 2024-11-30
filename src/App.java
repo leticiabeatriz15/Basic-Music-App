@@ -15,31 +15,35 @@ public class App {
           musica1.setnomeMusica("Count-Em");
           musica1.setGenero("Rock");
           musica1.setDuracao(180);
-          musica1.setArquivoAudio("./assets/Brandon-Lake_Count-Em.wav");
+          musica1.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Count-Em.wav");
 
 
           Musica musica2 = new Musica();
           musica2.setnomeMusica("That's who i praise");
           musica2.setGenero("Rock");
           musica2.setDuracao(180);
-          musica2.setArquivoAudio("./assets/Brandon-Lake_Thats-Who-I-Praise.wav");
+          musica2.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Thats-Who-I-Praise.wav");
 
           Musica musica3 = new Musica();
           musica3.setnomeMusica("Tear-Off-The-Roof");
           musica3.setGenero("Rock");
           musica3.setDuracao(180);
-          musica3.setArquivoAudio("./assets/Brandon-Lake_Tear-Off-The-Roof.wav");
+          musica3.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Tear-Off-The-Roof.wav");
 
           Album album1 = new Album();
           album1.setNomeAlbum("Primeiro artista");
           album1.setAno(2023);
           album1.addMusica(musica1);
           album1.addMusica(musica2);
-          album1.addMusica(musica3);
           
+          Album album2 = new Album();
+          album2.addMusica(musica3);
+
           Artista BrandonLake = new Artista();
           BrandonLake.setNome("Brandon Lake");
           BrandonLake.addAlbum(album1);
+          BrandonLake.addAlbum(album2);
+
 
           System.out.println("Abrindo PlayMusic...");
 
@@ -47,8 +51,10 @@ public class App {
 
            // Cria o botão Play/Stop e configura sua ação
           JButton playStopButton = new JButton("Play");
+
+          player.listAlbuns(BrandonLake.getAlbuns());
           
-          player.listMusic(BrandonLake.getAlbuns().get(0).getMusicas());
+          //player.listMusic(BrandonLake.getAlbuns().get(0).getMusicas());
 
           playStopButton.addActionListener(new ActionListener() {
                @Override
@@ -89,8 +95,23 @@ public class App {
                }
           });
 
+          JButton changeAlbumButton = new JButton("Change ALbum");
+          changeAlbumButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                         player.nextAlbum();
+                         if (!player.isPlaying) {
+                              player.playAudio();
+                              playStopButton.setText("Stop");
+                         }else{
+                              player.stopAudio();
+                              playStopButton.setText("Play");
+                         }
 
-          ImageIcon icon = new ImageIcon("./assets/imgMusic.png");
+               }
+          });
+
+          ImageIcon icon = new ImageIcon("aula-de-poo-playmusic/assets/imgMusic.png");
           //Exibe um JOptionPane com o botão Play/Stop
           JOptionPane.showOptionDialog(
                 null,
@@ -99,7 +120,7 @@ public class App {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 icon,
-                new Object[] { previousAudioButton, playStopButton, nextAudioButton }, playStopButton);
+                new Object[] { previousAudioButton, playStopButton, nextAudioButton, changeAlbumButton }, playStopButton);
 
           // Fecha o clip de áudio ao encerrar o programa
           if (player.audioClip != null) {
