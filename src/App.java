@@ -12,37 +12,58 @@ import dominio.Musica;
 public class App {
      public static void main(String[] args) throws Exception {
           Musica musica1 = new Musica();
-          musica1.setnomeMusica("Count-Em");
+          musica1.setnomeMusica("Good God Almighty");
           musica1.setGenero("Rock");
           musica1.setDuracao(180);
-          musica1.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Count-Em.wav");
+          musica1.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Good_God_Almighty.wav");
 
 
           Musica musica2 = new Musica();
-          musica2.setnomeMusica("That's who i praise");
+          musica2.setnomeMusica("He Is");
           musica2.setGenero("Rock");
           musica2.setDuracao(180);
-          musica2.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Thats-Who-I-Praise.wav");
+          musica2.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-He_Is.wav");
 
           Musica musica3 = new Musica();
-          musica3.setnomeMusica("Tear-Off-The-Roof");
+          musica3.setnomeMusica("Milk and Honey");
           musica3.setGenero("Rock");
           musica3.setDuracao(180);
-          musica3.setArquivoAudio("aula-de-poo-playmusic/assets/Brandon-Lake_Tear-Off-The-Roof.wav");
+          musica3.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-MilkAndHoney.wav");
 
-          Album album1 = new Album();
-          album1.setNomeAlbum("Primeiro artista");
-          album1.setAno(2023);
-          album1.addMusica(musica1);
-          album1.addMusica(musica2);
+          Album MilkAndHoney = new Album();
+          MilkAndHoney.setNomeAlbum("Milk and Honey");
+          MilkAndHoney.setAno(2023);
+          MilkAndHoney.addMusica(musica1);
+          MilkAndHoney.addMusica(musica2);
+          MilkAndHoney.addMusica(musica3);
           
-          Album album2 = new Album();
-          album2.addMusica(musica3);
+          Musica musica4 = new Musica();
+          musica4.setnomeMusica("Even in Exile");
+          musica4.setGenero("Rock");
+          musica4.setDuracao(180);
+          musica4.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Even_In_Exile.wav");
 
-          Artista BrandonLake = new Artista();
-          BrandonLake.setNome("Brandon Lake");
-          BrandonLake.addAlbum(album1);
-          BrandonLake.addAlbum(album2);
+          Musica musica5 = new Musica();
+          musica5.setnomeMusica("Grave Robber");
+          musica5.setGenero("Rock");
+          musica5.setDuracao(180);
+          musica5.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Grave_Robber.wav");
+
+          Musica musica6 = new Musica();
+          musica6.setnomeMusica("Still");
+          musica6.setGenero("Rock");
+          musica6.setDuracao(180);
+          musica6.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Still.wav");
+
+          Album TheExile = new Album();
+          TheExile.addMusica(musica4);
+          TheExile.addMusica(musica5);
+          TheExile.addMusica(musica6);
+
+          Artista Crowder = new Artista();
+          Crowder.setNome("Crowder");
+          Crowder.addAlbum(MilkAndHoney);
+          Crowder.addAlbum(TheExile);
 
 
           System.out.println("Abrindo PlayMusic...");
@@ -52,9 +73,9 @@ public class App {
            // Cria o botão Play/Stop e configura sua ação
           JButton playStopButton = new JButton("Play");
 
-          player.listAlbuns(BrandonLake.getAlbuns());
+          player.listAlbuns(Crowder.getAlbuns());
           
-          //player.listMusic(BrandonLake.getAlbuns().get(0).getMusicas());
+          //player.listMusic(Crowder.getAlbuns().get(0).getMusicas());
 
           playStopButton.addActionListener(new ActionListener() {
                @Override
