@@ -1,9 +1,18 @@
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import dominio.Album;
 import dominio.Artista;
@@ -65,18 +74,12 @@ public class App {
           Crowder.addAlbum(MilkAndHoney);
           Crowder.addAlbum(TheExile);
 
-
           System.out.println("Abrindo PlayMusic...");
 
           AudioPlayer player = new AudioPlayer();
 
            // Cria o botão Play/Stop e configura sua ação
           JButton playStopButton = new JButton("Play");
-
-          player.listAlbuns(Crowder.getAlbuns());
-          
-          //player.listMusic(Crowder.getAlbuns().get(0).getMusicas());
-
           playStopButton.addActionListener(new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent e) {
@@ -116,32 +119,57 @@ public class App {
                }
           });
 
-          JButton changeAlbumButton = new JButton("Change ALbum");
+          JButton changeAlbumButton = new JButton("Change Album");
           changeAlbumButton.addActionListener(new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent e) {
-                         player.nextAlbum();
-                         if (!player.isPlaying) {
-                              player.playAudio();
-                              playStopButton.setText("Stop");
-                         }else{
-                              player.stopAudio();
-                              playStopButton.setText("Play");
-                         }
-
+                    player.nextAlbum();
+                    if (!player.isPlaying) {
+                         player.playAudio();
+                         playStopButton.setText("Stop");
+                    }else{
+                         player.stopAudio();
+                         playStopButton.setText("Play");
+                    }
                }
           });
 
-          ImageIcon icon = new ImageIcon("aula-de-poo-playmusic/assets/imgMusic.png");
-          //Exibe um JOptionPane com o botão Play/Stop
-          JOptionPane.showOptionDialog(
-                null,
-                player,
-                "PlayMusic",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                icon,
-                new Object[] { previousAudioButton, playStopButton, nextAudioButton, changeAlbumButton }, playStopButton);
+          JPanel panel = new JPanel();
+          JFrame frame = new JFrame();
+
+          //JLabel iconLabel = new JLabel(icon);
+
+          JButton startButton = new JButton("Start");
+          startButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                    panel.remove(startButton);
+                    player.listAlbuns(Crowder.getAlbuns());
+          
+                    panel.add(previousAudioButton);
+                    panel.add(playStopButton);
+                    panel.add(nextAudioButton);
+                    panel.add(changeAlbumButton);
+                    panel.revalidate(); // Atualiza o layout painel
+                    panel.repaint();
+               }
+          });
+
+          panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+          panel.setLayout(new GridLayout(0, 1));
+
+          //panel.add(iconLabel);
+          panel.add(startButton);
+
+          frame.add(panel, BorderLayout.CENTER);
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.setTitle("Play Music");
+          frame.pack();
+          frame.setVisible(true);
+
+          JLabel textLabel = new JLabel("Bem-vindo ao Play Music!");
+          textLabel.setHorizontalAlignment(SwingConstants.CENTER); // Centraliza o texto
+          panel.add(textLabel);
 
           // Fecha o clip de áudio ao encerrar o programa
           if (player.audioClip != null) {
