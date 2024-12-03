@@ -20,57 +20,31 @@ import dominio.Musica;
 
 public class App {
      public static void main(String[] args) throws Exception {
-          Musica musica1 = new Musica();
-          musica1.setnomeMusica("Good God Almighty");
-          musica1.setGenero("Rock");
-          musica1.setDuracao(180);
-          musica1.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Good_God_Almighty.wav");
+          Musica musica1 = new Musica("Good God Almighty", "Rock", 180, "./assets/Crowder/Crowder-Good_God_Almighty.wav");
 
+          Musica musica2 = new Musica("He Is", "Rock", 180, "./assets/Crowder/Crowder-He_Is.wav");
 
-          Musica musica2 = new Musica();
-          musica2.setnomeMusica("He Is");
-          musica2.setGenero("Rock");
-          musica2.setDuracao(180);
-          musica2.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-He_Is.wav");
+          Musica musica3 = new Musica("Milk and Honey", "Rock", 180, "./assets/Crowder/Crowder-MilkAndHoney.wav");
 
-          Musica musica3 = new Musica();
-          musica3.setnomeMusica("Milk and Honey");
-          musica3.setGenero("Rock");
-          musica3.setDuracao(180);
-          musica3.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-MilkAndHoney.wav");
-
-          Album MilkAndHoney = new Album();
+          Album MilkAndHoney = new Album("Milk and Honey", 2023);
           MilkAndHoney.setNomeAlbum("Milk and Honey");
           MilkAndHoney.setAno(2023);
           MilkAndHoney.addMusica(musica1);
           MilkAndHoney.addMusica(musica2);
           MilkAndHoney.addMusica(musica3);
           
-          Musica musica4 = new Musica();
-          musica4.setnomeMusica("Even in Exile");
-          musica4.setGenero("Rock");
-          musica4.setDuracao(180);
-          musica4.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Even_In_Exile.wav");
+          Musica musica4 = new Musica("Even in Exile", "Rock", 180, "./assets/Crowder/Crowder-Even_In_Exile.wav");
 
-          Musica musica5 = new Musica();
-          musica5.setnomeMusica("Grave Robber");
-          musica5.setGenero("Rock");
-          musica5.setDuracao(180);
-          musica5.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Grave_Robber.wav");
+          Musica musica5 = new Musica("Grave Robber", "Rock", 180, "./assets/Crowder/Crowder-Grave_Robber.wav");
 
-          Musica musica6 = new Musica();
-          musica6.setnomeMusica("Still");
-          musica6.setGenero("Rock");
-          musica6.setDuracao(180);
-          musica6.setArquivoAudio("aula-de-poo-playmusic/assets/Crowder/Crowder-Still.wav");
+          Musica musica6 = new Musica("Still", "Rock", 180, "./assets/Crowder/Crowder-Still.wav");
 
-          Album TheExile = new Album();
+          Album TheExile = new Album("The Exile", 2023);
           TheExile.addMusica(musica4);
           TheExile.addMusica(musica5);
           TheExile.addMusica(musica6);
 
-          Artista Crowder = new Artista();
-          Crowder.setNome("Crowder");
+          Artista Crowder = new Artista("Crowder");
           Crowder.addAlbum(MilkAndHoney);
           Crowder.addAlbum(TheExile);
 
@@ -137,7 +111,8 @@ public class App {
           JPanel panel = new JPanel();
           JFrame frame = new JFrame();
 
-          //JLabel iconLabel = new JLabel(icon);
+          ImageIcon icon = new ImageIcon("./assets/imgMusic.png");
+          JLabel iconLabel = new JLabel(icon);
 
           JButton startButton = new JButton("Start");
           startButton.addActionListener(new ActionListener() {
@@ -146,6 +121,7 @@ public class App {
                     panel.remove(startButton);
                     player.listAlbuns(Crowder.getAlbuns());
           
+                    panel.add(iconLabel);
                     panel.add(previousAudioButton);
                     panel.add(playStopButton);
                     panel.add(nextAudioButton);
@@ -158,7 +134,6 @@ public class App {
           panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
           panel.setLayout(new GridLayout(0, 1));
 
-          //panel.add(iconLabel);
           panel.add(startButton);
 
           frame.add(panel, BorderLayout.CENTER);

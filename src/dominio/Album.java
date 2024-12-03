@@ -8,6 +8,11 @@ public class Album {
     private int ano;
     private List<Musica> musicas = new ArrayList<>();
 
+    public Album(String nomeAlbum, int ano){
+        this.nomeAlbum = nomeAlbum;
+        this.ano = ano;
+    }
+
     public String getNomeAlbum() {
         return nomeAlbum;
     }

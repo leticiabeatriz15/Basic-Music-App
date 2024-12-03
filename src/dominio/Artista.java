@@ -6,6 +6,10 @@ public class Artista {
     private String nome;
     private List<Album> albuns = new ArrayList<>();
   
+    public Artista(String nomeArtista){
+      this.nome = nomeArtista;
+    }
+
     public String getNome() {
       return nome;
     }
